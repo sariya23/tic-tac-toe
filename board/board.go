@@ -3,6 +3,7 @@ package board
 import (
 	"fmt"
 	"strings"
+	"tic-tac-toe/player"
 )
 
 type Board struct {
@@ -50,4 +51,17 @@ func (b *Board) IsGameEnd() bool {
 	}
 
 	return true
+}
+
+func (b *Board) GetAvailableSteps(p *player.Player) [][]int {
+	availableSteps := make([][]int, 0)
+	for i := 0; i < b.SizeX; i++ {
+		for j := 0; j < b.SizeY; j++ {
+			if b.Board[i][j] != p.Sign {
+				availableSteps = append(availableSteps, []int{i, j})
+			}
+		}
+	}
+
+	return availableSteps
 }
