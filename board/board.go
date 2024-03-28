@@ -22,15 +22,16 @@ func (b *Board) NewBoard() Board {
 }
 
 func (b *Board) DrawBoard() {
-	fmt.Println(strings.Repeat("-", 15))
+	fmt.Println("   A    B    C")
+	fmt.Println(" " + strings.Repeat("-", 15))
 
 	for i := 0; i < b.SizeX; i++ {
-		row := ""
+		row := fmt.Sprint(i + 1)
 		for j := 0; j < b.SizeY; j++ {
 			row += fmt.Sprintf("| %s |", b.Board[i][j])
 		}
 		fmt.Println(row)
-		fmt.Println(strings.Repeat("-", 15))
+		fmt.Println(" " + strings.Repeat("-", 15))
 	}
 
 }
@@ -65,3 +66,18 @@ func (b *Board) GetAvailableSteps(p *player.Player) [][]int {
 
 	return availableSteps
 }
+
+// func (b *Board) ShowAvailableSteps (p *player.Player) {
+// 	fmt.Println(strings.Repeat("-", 15))
+// 	availableSteps := b.GetAvailableSteps(p)
+// 	fmt.Println(strings.Repeat("-", 15))
+
+// 	for i := 0; i < b.SizeX; i++ {
+// 		row := ""
+// 		for j := 0; j < b.SizeY; j++ {
+// 			if
+// 			row += fmt.Sprintf("| %s |", b.Board[i][j])
+// 		}
+// 		fmt.Println(row)
+// 		fmt.Println(strings.Repeat("-", 15))
+// 	}
