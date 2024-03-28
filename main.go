@@ -29,16 +29,10 @@ func main() {
 
 	fmt.Printf("%s - %s VS %s - %s\n", player1.Name, player1.Sign, player2.Name, player2.Sign)
 
-	player1.IsStep = player.RandomBool()
-	player2.IsStep = !player1.IsStep
+	player.WhoStepFirst(&player1, &player2)
+	player.PrintWhoStepFirst(player1, player2)
 
 	log.Println(player1, player2)
-
-	if player1.IsStep {
-		fmt.Printf("Первым ходит игрок %s\n", player1.Name)
-	} else {
-		fmt.Printf("Первым ходит игрок %s\n", player2.Name)
-	}
 
 	b = b.NewBoard()
 	log.Println(b)

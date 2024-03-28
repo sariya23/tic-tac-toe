@@ -67,3 +67,16 @@ func getSign() (string, error) {
 	}
 	return sign, err
 }
+
+func WhoStepFirst(p1, p2 *Player) {
+	p1.IsStep = RandomBool()
+	p2.IsStep = !p1.IsStep
+}
+
+func PrintWhoStepFirst(p1, p2 Player) {
+	if p1.IsStep {
+		fmt.Printf("Первым ходит игрок %s\n", p1.Name)
+	} else {
+		fmt.Printf("Первым ходит игрок %s\n", p2.Name)
+	}
+}
