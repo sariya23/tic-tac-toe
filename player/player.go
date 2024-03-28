@@ -16,16 +16,15 @@ var usedSigns = []string{}
 
 func CreatePlayer() (Player, error) {
 	name, err := getName()
-
 	if err != nil {
 		return Player{}, err
 	}
 
 	sign, err := getSign()
-
 	if err != nil {
 		return Player{}, err
 	}
+
 	return Player{Name: name, Sign: sign}, nil
 }
 

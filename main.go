@@ -5,10 +5,13 @@ import (
 	"log"
 	"os"
 
+	"tic-tac-toe/board"
 	"tic-tac-toe/player"
 )
 
 func main() {
+	var b board.Board
+
 	SetLog()
 	fmt.Println("Введите данные по первому игроку: ")
 	player1, err := player.CreatePlayer()
@@ -23,6 +26,10 @@ func main() {
 	}
 
 	log.Println(player1, player2)
+
+	b = b.NewBoard()
+	log.Println(b)
+	b.DrawBoard()
 
 }
 
