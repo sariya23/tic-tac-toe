@@ -30,13 +30,20 @@ func main() {
 	fmt.Printf("%s - %s VS %s - %s\n", player1.Name, player1.Sign, player2.Name, player2.Sign)
 
 	player.WhoStepFirst(&player1, &player2)
-	player.PrintWhoStepFirst(player1, player2)
 
 	log.Println(player1, player2)
 
 	b = b.NewBoard()
 	log.Println(b)
-	b.DrawBoard()
+	fmt.Println("ИГРА НАЧИНАЕТСЯ!!!")
+
+	for b.IsGameEnd() != true {
+		player.PrintWhoStep(player1, player2)
+		player1.IsStep = !player1.IsStep
+		player2.IsStep = !player2.IsStep
+		b.DrawBoard()
+
+	}
 
 }
 
