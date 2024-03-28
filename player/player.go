@@ -15,30 +15,42 @@ type Player struct {
 var usedSigns = []string{}
 
 func CreatePlayer() (Player, error) {
-	var choice, username string
+	name, err := getName()
 
-	_, err := fmt.Scan(&username)
 	if err != nil {
-		log.Panicln(err)
+		return Player{}, err
 	}
+
+	sign, err := getSign()
+
+	if err != nil {
+		return Player{}, err
+	}
+	return Player{Name: name, Sign: sign}, nil
+}
+
+func getName() (string, error) {
+	var name string
+
+	_, err := fmt.Scan(&name)
+
+	if err != nil {
+		log.Panicln("Ошибка при выборе из меню ", err)
+	}
+
+	return name, nil
+}
+
+func getSign() (string, error) {
+	var sign, choice string
+	var err error
 
 	fmt.Printf("Крестик или нолик?\n1. Крестик (X)\n2. Нолик (O)\n3. Выйти(\n")
 	_, err = fmt.Scan(&choice)
+
 	if err != nil {
-		log.Panicln(err)
+		log.Panicln("Ошибка при выборе из меню ", err)
 	}
-
-	sign, err := getSign(choice)
-	if err != nil {
-		log.Panicln(err)
-	}
-
-	return Player{Name: username, Sign: sign}, nil
-}
-
-func getSign(choice string) (string, error) {
-	var sign string
-	var err error
 
 	if choice == "1" && !slices.Contains(usedSigns, "X") {
 		usedSigns = append(usedSigns, "X")
@@ -51,7 +63,7 @@ func getSign(choice string) (string, error) {
 		sign = ""
 		os.Exit(0)
 	} else {
-		err = fmt.Errorf("Что-то пошло не так...")
+		err = fmt.Errorf("что-то пошло не так")
 	}
 	return sign, err
 }
