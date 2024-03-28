@@ -8,8 +8,9 @@ import (
 )
 
 type Player struct {
-	Name string
-	Sign string
+	Name   string
+	Sign   string
+	IsStep bool
 }
 
 var usedSigns = []string{}
