@@ -27,6 +27,8 @@ func main() {
 
 	log.Println(player1, player2)
 
+	fmt.Printf("%s - %s VS %s - %s\n", player1.Name, player1.Sign, player2.Name, player2.Sign)
+
 	b = b.NewBoard()
 	log.Println(b)
 	b.DrawBoard()
