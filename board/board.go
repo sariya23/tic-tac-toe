@@ -74,7 +74,7 @@ func (b *Board) GetAvailableSteps() []Step {
 	availableSteps := make([]Step, 0)
 	for i := 0; i < b.SizeX; i++ {
 		for j := 0; j < b.SizeY; j++ {
-			if strings.Contains(Xsign+Osign, b.Board[i][j]) {
+			if b.Board[i][j] == "*" {
 				availableSteps = append(availableSteps, Step{X: i, Y: j})
 			}
 		}
