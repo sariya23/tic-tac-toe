@@ -32,7 +32,7 @@ type Board struct {
 	SizeY int
 }
 
-type step struct {
+type stepCoordinates struct {
 	X int
 	Y int
 }
@@ -80,12 +80,12 @@ func (b *Board) IsGameEnd() bool {
 	return countEmptyFields == 0
 }
 
-func (b *Board) GetAvailableSteps() []step {
-	availableSteps := make([]step, 0)
+func (b *Board) GetAvailableSteps() []stepCoordinates {
+	availableSteps := make([]stepCoordinates, 0)
 	for i := 0; i < b.SizeX; i++ {
 		for j := 0; j < b.SizeY; j++ {
 			if b.Board[i][j] == "*" {
-				availableSteps = append(availableSteps, step{X: i, Y: j})
+				availableSteps = append(availableSteps, stepCoordinates{X: i, Y: j})
 			}
 		}
 	}
@@ -93,7 +93,7 @@ func (b *Board) GetAvailableSteps() []step {
 	return availableSteps
 }
 
-func TranslateStepToLetter(steps []step) []LetterCoordinates {
+func TranslateStepToLetter(steps []stepCoordinates) []LetterCoordinates {
 	translatedCoordinates := make([]LetterCoordinates, 0, len(steps))
 
 	for _, s := range steps {

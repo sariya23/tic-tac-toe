@@ -12,7 +12,7 @@ type testStructIsGameEnd struct {
 
 type testStructGetAvailableSteps struct {
 	board         Board
-	expectedSteps []step
+	expectedSteps []stepCoordinates
 }
 
 var expectedNewBoard = [][]string{
@@ -35,7 +35,7 @@ var testsGetAvailableSteps = []testStructGetAvailableSteps{
 			SizeX: 3,
 			SizeY: 3,
 		},
-		expectedSteps: []step{
+		expectedSteps: []stepCoordinates{
 			{0, 0},
 			{0, 1},
 			{0, 2},
@@ -53,7 +53,7 @@ var testsGetAvailableSteps = []testStructGetAvailableSteps{
 			SizeX: 3,
 			SizeY: 3,
 		},
-		expectedSteps: []step{},
+		expectedSteps: []stepCoordinates{},
 	},
 	{
 		board: Board{
@@ -65,7 +65,7 @@ var testsGetAvailableSteps = []testStructGetAvailableSteps{
 			SizeX: 3,
 			SizeY: 3,
 		},
-		expectedSteps: []step{
+		expectedSteps: []stepCoordinates{
 			{1, 1},
 			{2, 2},
 		},
