@@ -67,10 +67,14 @@ func main() {
 
 		if player1.IsStep {
 			fmt.Printf("Игрок \"%s\" поставил \"%s\" на поле %s\n", player1.Name, player1.Sign, translatedCoord.X+translatedCoord.Y)
+			b.MarkStep(availableSteps[choiceNumber-1], player1.Sign)
 		} else {
-			fmt.Printf("Игрок %s поставил %s на поле %s\n", player2.Name, player2.Sign, translatedCoord.X+translatedCoord.Y)
+			fmt.Printf("Игрок \"%s\" поставил \"%s\" на поле %s\n", player2.Name, player2.Sign, translatedCoord.X+translatedCoord.Y)
+			b.MarkStep(availableSteps[choiceNumber-1], player2.Sign)
 		}
 
+		player1.IsStep = !player1.IsStep
+		player2.IsStep = !player2.IsStep
 	}
 
 }

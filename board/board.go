@@ -33,8 +33,8 @@ type StepLetterCoordinates struct {
 }
 
 func (b *Board) NewBoard() Board {
-	emptyRow := strings.Split(strings.Repeat(EmptySign, 3), "")
 	for i := 0; i < 3; i++ {
+		emptyRow := strings.Split(strings.Repeat(EmptySign, 3), "")
 		b.Board = append(b.Board, emptyRow)
 	}
 	b.SizeX = 3
@@ -90,4 +90,8 @@ func (b *Board) ShowAvailablaSteps() {
 		translatedCoord := TranslateStepToLetter(coord)
 		fmt.Printf("%v. %v\n", index+1, translatedCoord.X+translatedCoord.Y)
 	}
+}
+
+func (b Board) MarkStep(step stepCoordinates, sign string) {
+	b.Board[step.X][step.Y] = sign
 }
