@@ -3,7 +3,17 @@ package board
 import (
 	"fmt"
 	"strings"
-	"tic-tac-toe/player"
+)
+
+const (
+	Xsign     = "X"
+	Osign     = "O"
+	EmptySign = "*"
+)
+
+var (
+	markColumns = fmt.Sprint(strings.Repeat(" ", 3), "A", strings.Repeat(" ", 4), "B", strings.Repeat(" ", 4), "C")
+	outline     = fmt.Sprint(" " + strings.Repeat("-", 15))
 )
 
 type Board struct {
@@ -13,8 +23,9 @@ type Board struct {
 }
 
 func (b *Board) NewBoard() Board {
+	emptyRow := strings.Split(strings.Repeat(EmptySign, 3), "")
 	for i := 0; i < 3; i++ {
-		b.Board = append(b.Board, []string{"*", "*", "*"})
+		b.Board = append(b.Board, emptyRow)
 	}
 	b.SizeX = 3
 	b.SizeY = 3
@@ -22,8 +33,8 @@ func (b *Board) NewBoard() Board {
 }
 
 func (b *Board) DrawBoard() {
-	fmt.Println("   A    B    C")
-	fmt.Println(" " + strings.Repeat("-", 15))
+	fmt.Println(markColumns)
+	fmt.Println(outline)
 
 	for i := 0; i < b.SizeX; i++ {
 		row := fmt.Sprint(i + 1)
@@ -31,7 +42,7 @@ func (b *Board) DrawBoard() {
 			row += fmt.Sprintf("| %s |", b.Board[i][j])
 		}
 		fmt.Println(row)
-		fmt.Println(" " + strings.Repeat("-", 15))
+		fmt.Println(outline)
 	}
 
 }
@@ -54,11 +65,11 @@ func (b *Board) IsGameEnd() bool {
 	return true
 }
 
-func (b *Board) GetAvailableSteps(p *player.Player) [][]int {
+func (b *Board) GetAvailableSteps() [][]int {
 	availableSteps := make([][]int, 0)
 	for i := 0; i < b.SizeX; i++ {
 		for j := 0; j < b.SizeY; j++ {
-			if b.Board[i][j] != p.Sign {
+			if strings.Contains(Xsign+Osign, b.Board[i][j]) {
 				availableSteps = append(availableSteps, []int{i, j})
 			}
 		}
@@ -66,18 +77,3 @@ func (b *Board) GetAvailableSteps(p *player.Player) [][]int {
 
 	return availableSteps
 }
-
-// func (b *Board) ShowAvailableSteps (p *player.Player) {
-// 	fmt.Println(strings.Repeat("-", 15))
-// 	availableSteps := b.GetAvailableSteps(p)
-// 	fmt.Println(strings.Repeat("-", 15))
-
-// 	for i := 0; i < b.SizeX; i++ {
-// 		row := ""
-// 		for j := 0; j < b.SizeY; j++ {
-// 			if
-// 			row += fmt.Sprintf("| %s |", b.Board[i][j])
-// 		}
-// 		fmt.Println(row)
-// 		fmt.Println(strings.Repeat("-", 15))
-// 	}
