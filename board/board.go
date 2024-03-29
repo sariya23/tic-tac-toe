@@ -22,7 +22,7 @@ type Board struct {
 	SizeY int
 }
 
-type Step struct {
+type step struct {
 	X int
 	Y int
 }
@@ -70,12 +70,12 @@ func (b *Board) IsGameEnd() bool {
 	return true
 }
 
-func (b *Board) GetAvailableSteps() []Step {
-	availableSteps := make([]Step, 0)
+func (b *Board) GetAvailableSteps() []step {
+	availableSteps := make([]step, 0)
 	for i := 0; i < b.SizeX; i++ {
 		for j := 0; j < b.SizeY; j++ {
 			if b.Board[i][j] == "*" {
-				availableSteps = append(availableSteps, Step{X: i, Y: j})
+				availableSteps = append(availableSteps, step{X: i, Y: j})
 			}
 		}
 	}
