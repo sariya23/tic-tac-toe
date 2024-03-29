@@ -14,6 +14,16 @@ const (
 var (
 	markColumns = fmt.Sprint(strings.Repeat(" ", 3), "A", strings.Repeat(" ", 4), "B", strings.Repeat(" ", 4), "C")
 	outline     = fmt.Sprint(" " + strings.Repeat("-", 15))
+	translaterX = map[int]string{
+		0: "1",
+		1: "2",
+		2: "3",
+	}
+	translaterY = map[int]string{
+		0: "A",
+		1: "B",
+		2: "C",
+	}
 )
 
 type Board struct {
@@ -25,6 +35,11 @@ type Board struct {
 type step struct {
 	X int
 	Y int
+}
+
+type LetterCoordinates struct {
+	X string
+	Y string
 }
 
 func (b *Board) NewBoard() Board {
@@ -81,4 +96,15 @@ func (b *Board) GetAvailableSteps() []step {
 	}
 
 	return availableSteps
+}
+
+func TranslateStepToLetter(steps []step) []LetterCoordinates {
+	translatedCoordinates := make([]LetterCoordinates, 0, len(steps))
+
+	for _, s := range steps {
+		translatedX := translaterX[s.X]
+		translatedY := translaterY[s.Y]
+		translatedCoordinates = append(translatedCoordinates, LetterCoordinates{translatedX, translatedY})
+	}
+	return translatedCoordinates
 }
