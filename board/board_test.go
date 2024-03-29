@@ -15,6 +15,11 @@ type testStructGetAvailableSteps struct {
 	expectedSteps []stepCoordinates
 }
 
+type testStructTranslateCoordinates struct {
+	coordinate           stepCoordinates
+	translatedCoordinate StepLetterCoordinates
+}
+
 var expectedNewBoard = [][]string{
 	{"*", "*", "*"},
 	{"*", "*", "*"},
@@ -26,6 +31,12 @@ var testsIsGameEnd = []testStructIsGameEnd{
 	{board: Board{Board: [][]string{{"*", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: false},
 	{board: Board{Board: [][]string{{"*", "*", "*"}, {"*", "*", "*"}, {"*", "*", "*"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: false},
 	{board: Board{Board: [][]string{{"X", "*", "*"}, {"*", "*", "*"}, {"*", "*", "*"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: false},
+}
+
+var testsTranslateCoordinate = []testStructTranslateCoordinates{
+	{coordinate: stepCoordinates{X: 1, Y: 2}, translatedCoordinate: StepLetterCoordinates{X: "2", Y: "C"}},
+	{coordinate: stepCoordinates{X: 0, Y: 0}, translatedCoordinate: StepLetterCoordinates{X: "1", Y: "A"}},
+	{coordinate: stepCoordinates{X: 2, Y: 2}, translatedCoordinate: StepLetterCoordinates{X: "3", Y: "C"}},
 }
 
 var testsGetAvailableSteps = []testStructGetAvailableSteps{
@@ -103,6 +114,20 @@ func TestGetAvailableSteps(t *testing.T) {
 			t.Error(
 				"For", pair.board,
 				"expected", pair.expectedSteps,
+				"got", actual,
+			)
+		}
+	}
+}
+
+func TestTranslateCoordinates(t *testing.T) {
+	for _, pair := range testsTranslateCoordinate {
+		actual := TranslateStepToLetter(pair.coordinate)
+
+		if actual != pair.translatedCoordinate {
+			t.Error(
+				"For", pair.coordinate,
+				"expected", pair.translatedCoordinate,
 				"got", actual,
 			)
 		}
