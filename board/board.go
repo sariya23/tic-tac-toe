@@ -37,7 +37,7 @@ type stepCoordinates struct {
 	Y int
 }
 
-type LetterCoordinates struct {
+type StepLetterCoordinates struct {
 	X string
 	Y string
 }
@@ -93,13 +93,13 @@ func (b *Board) GetAvailableSteps() []stepCoordinates {
 	return availableSteps
 }
 
-func TranslateStepToLetter(steps []stepCoordinates) []LetterCoordinates {
-	translatedCoordinates := make([]LetterCoordinates, 0, len(steps))
+func TranslateStepToLetter(steps []stepCoordinates) []StepLetterCoordinates {
+	translatedCoordinates := make([]StepLetterCoordinates, 0, len(steps))
 
 	for _, s := range steps {
 		translatedX := translaterX[s.X]
 		translatedY := translaterY[s.Y]
-		translatedCoordinates = append(translatedCoordinates, LetterCoordinates{translatedX, translatedY})
+		translatedCoordinates = append(translatedCoordinates, StepLetterCoordinates{translatedX, translatedY})
 	}
 	return translatedCoordinates
 }
