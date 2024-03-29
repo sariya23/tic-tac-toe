@@ -22,6 +22,11 @@ type Board struct {
 	SizeY int
 }
 
+type Step struct {
+	X int
+	Y int
+}
+
 func (b *Board) NewBoard() Board {
 	emptyRow := strings.Split(strings.Repeat(EmptySign, 3), "")
 	for i := 0; i < 3; i++ {
@@ -65,12 +70,12 @@ func (b *Board) IsGameEnd() bool {
 	return true
 }
 
-func (b *Board) GetAvailableSteps() [][]int {
-	availableSteps := make([][]int, 0)
+func (b *Board) GetAvailableSteps() []Step {
+	availableSteps := make([]Step, 0)
 	for i := 0; i < b.SizeX; i++ {
 		for j := 0; j < b.SizeY; j++ {
 			if strings.Contains(Xsign+Osign, b.Board[i][j]) {
-				availableSteps = append(availableSteps, []int{i, j})
+				availableSteps = append(availableSteps, Step{X: i, Y: j})
 			}
 		}
 	}
