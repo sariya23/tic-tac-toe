@@ -77,12 +77,7 @@ func (b *Board) IsGameEnd() bool {
 			}
 		}
 	}
-
-	if countEmptyFields > 0 {
-		return false
-	}
-
-	return true
+	return countEmptyFields == 0
 }
 
 func (b *Board) GetAvailableSteps() []step {
