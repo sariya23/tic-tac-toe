@@ -82,3 +82,12 @@ func (b *Board) GetAvailableSteps() []stepCoordinates {
 
 	return availableSteps
 }
+
+func (b *Board) ShowAvailablaSteps() {
+	availableSteps := b.GetAvailableSteps()
+
+	for index, coord := range availableSteps {
+		translatedCoord := TranslateStepToLetter(coord)
+		fmt.Printf("%v. %v\n", index+1, translatedCoord.X+translatedCoord.Y)
+	}
+}

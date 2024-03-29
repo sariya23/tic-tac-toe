@@ -1,9 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
+	"strconv"
+	"strings"
 
 	"tic-tac-toe/board"
 	"tic-tac-toe/player"
@@ -39,9 +42,34 @@ func main() {
 
 	for b.IsGameEnd() != true {
 		player.PrintWhoStep(player1, player2)
-		player1.IsStep = !player1.IsStep
-		player2.IsStep = !player2.IsStep
+
 		b.DrawBoard()
+		b.ShowAvailablaSteps()
+
+		stepChoice := GetInput()
+		choiceNumber, err := ConverToNumber(stepChoice)
+		availableSteps := b.GetAvailableSteps()
+
+		if err != nil || choiceNumber <= 0 || choiceNumber > len(availableSteps) {
+			for {
+				fmt.Println("Нужно ввести номер из списка")
+				stepChoice = GetInput()
+				choiceNumber, err = ConverToNumber(stepChoice)
+				if err != nil || choiceNumber <= 0 || choiceNumber > len(availableSteps) {
+					continue
+				} else {
+					break
+				}
+			}
+		}
+
+		translatedCoord := board.TranslateStepToLetter(availableSteps[choiceNumber-1])
+
+		if player1.IsStep {
+			fmt.Printf("Игрок \"%s\" поставил \"%s\" на поле %s\n", player1.Name, player1.Sign, translatedCoord.X+translatedCoord.Y)
+		} else {
+			fmt.Printf("Игрок %s поставил %s на поле %s\n", player2.Name, player2.Sign, translatedCoord.X+translatedCoord.Y)
+		}
 
 	}
 
@@ -53,4 +81,26 @@ func SetLog() {
 		log.Fatal("Failed to open log file:", err)
 	}
 	log.SetOutput(file)
+}
+
+func GetInput() string {
+	reader := bufio.NewReader(os.Stdin)
+	choice, err := reader.ReadString('\n')
+
+	if err != nil {
+		log.Fatal("Что-то пошло не так при вводе")
+	}
+
+	return strings.Trim(choice, "\n")
+}
+
+func ConverToNumber(s string) (int, error) {
+	n, err := strconv.Atoi(s)
+
+	if err != nil {
+		log.Println(err)
+		return 0, err
+	}
+
+	return n, nil
 }
