@@ -93,13 +93,9 @@ func (b *Board) GetAvailableSteps() []stepCoordinates {
 	return availableSteps
 }
 
-func TranslateStepToLetter(steps []stepCoordinates) []StepLetterCoordinates {
-	translatedCoordinates := make([]StepLetterCoordinates, 0, len(steps))
+func TranslateStepToLetter(step stepCoordinates) StepLetterCoordinates {
+	translatedX := translaterX[step.X]
+	translatedY := translaterY[step.Y]
 
-	for _, s := range steps {
-		translatedX := translaterX[s.X]
-		translatedY := translaterY[s.Y]
-		translatedCoordinates = append(translatedCoordinates, StepLetterCoordinates{translatedX, translatedY})
-	}
-	return translatedCoordinates
+	return StepLetterCoordinates{X: translatedX, Y: translatedY}
 }
