@@ -2,27 +2,27 @@ package board
 
 import "testing"
 
-type testBoardPairs struct {
-	board     Board
-	isGameEnd bool
+type testStructIsGameEnd struct {
+	board             Board
+	expectedIsGameEnd bool
 }
 
-var testsIsGameEnd = []testBoardPairs{
-	{board: Board{Board: [][]string{{"X", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, isGameEnd: true},
-	{board: Board{Board: [][]string{{"*", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, isGameEnd: false},
-	{board: Board{Board: [][]string{{"*", "*", "*"}, {"*", "*", "*"}, {"*", "*", "*"}}, SizeX: 3, SizeY: 3}, isGameEnd: false},
-	{board: Board{Board: [][]string{{"X", "*", "*"}, {"*", "*", "*"}, {"*", "*", "*"}}, SizeX: 3, SizeY: 3}, isGameEnd: false},
+var testsIsGameEnd = []testStructIsGameEnd{
+	{board: Board{Board: [][]string{{"X", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: true},
+	{board: Board{Board: [][]string{{"*", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: false},
+	{board: Board{Board: [][]string{{"*", "*", "*"}, {"*", "*", "*"}, {"*", "*", "*"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: false},
+	{board: Board{Board: [][]string{{"X", "*", "*"}, {"*", "*", "*"}, {"*", "*", "*"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: false},
 }
 
 func TestIsGameEnd(t *testing.T) {
 	for _, pair := range testsIsGameEnd {
-		v := pair.board.IsGameEnd()
+		actual := pair.board.IsGameEnd()
 
-		if v != pair.isGameEnd {
+		if actual != pair.expectedIsGameEnd {
 			t.Error(
 				"For", pair.board,
-				"expected", pair.isGameEnd,
-				"got", v,
+				"expected", pair.expectedIsGameEnd,
+				"got", actual,
 			)
 		}
 	}
