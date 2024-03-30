@@ -75,8 +75,8 @@ func WhoStepFirst(p1, p2 *Player) {
 
 func PrintWhoStep(p1, p2 Player) {
 	if p1.IsStep {
-		fmt.Printf("Ходит игрок %s\n", p1.Name)
+		fmt.Printf("Ходит игрок %s (%s)\n", p1.Name, p1.Sign)
 	} else {
-		fmt.Printf("Ходит игрок %s\n", p2.Name)
+		fmt.Printf("Ходит игрок %s (%s)\n", p2.Name, p2.Sign)
 	}
 }

@@ -87,13 +87,7 @@ func main() {
 
 	fmt.Println()
 
-	if isDraw {
-		fmt.Println("Игра заканчивается нечьей")
-	} else if player2.IsStep {
-		fmt.Printf("Выигрывает игрок %s - %s\n", player2.Name, player2.Sign)
-	} else {
-		fmt.Printf("Выигрывает игрок %s - %s\n", player1.Name, player1.Sign)
-	}
+	PrintResult(isDraw, player1, player2)
 
 	b.DrawBoard()
 }
@@ -126,4 +120,14 @@ func ConverToNumber(s string) (int, error) {
 	}
 
 	return n, nil
+}
+
+func PrintResult(isDraw bool, p1, p2 player.Player) {
+	if isDraw {
+		fmt.Println("Игра заканчивается ничьей")
+	} else if p2.IsStep {
+		fmt.Printf("Выигрывает игрок %s - %s\n", p2.Name, p2.Sign)
+	} else {
+		fmt.Printf("Выигрывает игрок %s - %s\n", p1.Name, p1.Sign)
+	}
 }
