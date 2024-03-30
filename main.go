@@ -17,13 +17,13 @@ func main() {
 	var b board.Board
 
 	SetLog()
-	fmt.Println("Введите данные по первому игроку: ")
+	fmt.Println("Введите имя первого игрока: ")
 	player1, err := player.CreatePlayer()
 	if err != nil {
 		log.Panicln(err)
 	}
 
-	fmt.Println("Введите данные по второму игроку: ")
+	fmt.Println("Введите имя второго игрока: ")
 	player2, err := player.CreatePlayer()
 	if err != nil {
 		log.Panicln(err)
@@ -40,6 +40,7 @@ func main() {
 	b = b.NewBoard()
 	log.Println(b)
 	fmt.Println("ИГРА НАЧИНАЕТСЯ!!!")
+	fmt.Println()
 
 	for {
 		isGameEnd, isDraw = b.IsGameEnd()
@@ -83,6 +84,8 @@ func main() {
 		player1.IsStep = !player1.IsStep
 		player2.IsStep = !player2.IsStep
 	}
+
+	fmt.Println()
 
 	if isDraw {
 		fmt.Println("Игра заканчивается нечьей")
