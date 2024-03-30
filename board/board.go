@@ -58,29 +58,34 @@ func (b *Board) DrawBoard() {
 }
 
 func (b *Board) IsGameEnd() (bool, bool) {
+	var isEnd, isDraw bool
 	emptyFields := b.getAmountOfEmpteFields()
 	mainCross := b.getMainCrossValues()
 	subCross := b.getSubCrossValues()
 
 	for colIndex := 0; colIndex < b.SizeY; colIndex++ {
 		if isWinningValues(b.getColValues(colIndex)) {
-			return true, true
+			isEnd, isDraw = true, false
+			return isEnd, isDraw
 		}
 	}
 
 	for rowIndex := 0; rowIndex < b.SizeX; rowIndex++ {
 		if isWinningValues(b.getRowValues(rowIndex)) {
-			return true, true
+			isEnd, isDraw = true, false
+			return isEnd, isDraw
 		}
 	}
 
 	if isWinningValues(mainCross) || isWinningValues(subCross) {
-		return true, true
+		isEnd, isDraw = true, false
+		return isEnd, isDraw
 	} else if emptyFields == 0 {
-		return true, false
+		isEnd, isDraw = true, true
+		return isEnd, isDraw
 	}
 
-	return false, false
+	return isEnd, isDraw
 }
 
 func (b *Board) getColValues(colIndex int) []string {

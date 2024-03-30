@@ -46,7 +46,7 @@ var expectedNewBoard = [][]string{
 
 var testsIsGameEnd = []testStructIsGameEnd{
 	{board: Board{Board: [][]string{{"X", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: true, expectedIsDraw: false},
-	{board: Board{Board: [][]string{{"*", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: false, expectedIsDraw: false},
+	{board: Board{Board: [][]string{{"*", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: true, expectedIsDraw: false},
 	{board: Board{Board: [][]string{{"*", "*", "*"}, {"*", "*", "*"}, {"*", "*", "*"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: false, expectedIsDraw: false},
 	{board: Board{Board: [][]string{{"X", "*", "*"}, {"*", "*", "*"}, {"*", "*", "*"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: false, expectedIsDraw: false},
 	{board: Board{Board: [][]string{{"X", "*", "O"}, {"O", "X", "*"}, {"*", "*", "X"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: true, expectedIsDraw: false},
