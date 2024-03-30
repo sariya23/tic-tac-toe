@@ -73,10 +73,10 @@ func main() {
 		translatedCoord := board.TranslateStepToLetter(availableSteps[choiceNumber-1])
 
 		if player1.IsStep {
-			fmt.Printf("Игрок \"%s\" поставил \"%s\" на поле %s\n", player1.Name, player1.Sign, translatedCoord.X+translatedCoord.Y)
+			fmt.Printf("Игрок \"%s\" поставил(а) \"%s\" на поле %s\n", player1.Name, player1.Sign, translatedCoord.X+translatedCoord.Y)
 			b.MarkStep(availableSteps[choiceNumber-1], player1.Sign)
 		} else {
-			fmt.Printf("Игрок \"%s\" поставил \"%s\" на поле %s\n", player2.Name, player2.Sign, translatedCoord.X+translatedCoord.Y)
+			fmt.Printf("Игрок \"%s\" поставил(а) \"%s\" на поле %s\n", player2.Name, player2.Sign, translatedCoord.X+translatedCoord.Y)
 			b.MarkStep(availableSteps[choiceNumber-1], player2.Sign)
 		}
 
@@ -85,11 +85,14 @@ func main() {
 	}
 
 	if isDraw {
-		fmt.Println("НИЧЬЯ")
+		fmt.Println("Игра заканчивается нечьей")
+	} else if player2.IsStep {
+		fmt.Printf("Выигрывает игрок %s - %s\n", player2.Name, player2.Sign)
 	} else {
-		fmt.Println("ВЫиград")
+		fmt.Printf("Выигрывает игрок %s - %s\n", player1.Name, player1.Sign)
 	}
 
+	b.DrawBoard()
 }
 
 func SetLog() {
