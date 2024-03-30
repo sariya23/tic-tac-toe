@@ -1,5 +1,7 @@
 package board
 
+import "strings"
+
 var (
 	translaterX = map[int]string{
 		0: "1",
@@ -18,4 +20,11 @@ func TranslateStepToLetter(step stepCoordinates) StepLetterCoordinates {
 	translatedY := translaterY[step.Y]
 
 	return StepLetterCoordinates{X: translatedX, Y: translatedY}
+}
+
+func isWinningValues(values []string) bool {
+	if strings.Count(strings.Join(values, ""), "X") == len(values) || strings.Count(strings.Join(values, ""), "O") == len(values) {
+		return true
+	}
+	return false
 }

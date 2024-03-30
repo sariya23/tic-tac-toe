@@ -13,6 +13,7 @@ import (
 )
 
 func main() {
+	var isGameEnd, isDraw bool
 	var b board.Board
 
 	SetLog()
@@ -40,7 +41,13 @@ func main() {
 	log.Println(b)
 	fmt.Println("ИГРА НАЧИНАЕТСЯ!!!")
 
-	for b.IsGameEnd() != true {
+	for {
+		isGameEnd, isDraw = b.IsGameEnd()
+
+		if isGameEnd {
+			break
+		}
+
 		player.PrintWhoStep(player1, player2)
 
 		b.DrawBoard()
@@ -75,6 +82,12 @@ func main() {
 
 		player1.IsStep = !player1.IsStep
 		player2.IsStep = !player2.IsStep
+	}
+
+	if isDraw {
+		fmt.Println("НИЧЬЯ")
+	} else {
+		fmt.Println("ВЫиград")
 	}
 
 }

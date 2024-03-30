@@ -57,7 +57,75 @@ func (b *Board) DrawBoard() {
 
 }
 
-func (b *Board) IsGameEnd() bool {
+func (b *Board) IsGameEnd() (bool, bool) {
+	emptyFields := b.getAmountOfEmpteFields()
+	mainCross := b.getMainCrossValues()
+	subCross := b.getSubCrossValues()
+
+	for colIndex := 0; colIndex < b.SizeY; colIndex++ {
+		if isWinningValues(b.getColValues(colIndex)) {
+			return true, true
+		}
+	}
+
+	for rowIndex := 0; rowIndex < b.SizeX; rowIndex++ {
+		if isWinningValues(b.getRowValues(rowIndex)) {
+			return true, true
+		}
+	}
+
+	if isWinningValues(mainCross) || isWinningValues(subCross) {
+		return true, true
+	} else if emptyFields == 0 {
+		return true, false
+	}
+
+	return false, false
+}
+
+func (b *Board) getColValues(colIndex int) []string {
+	colValues := make([]string, 0, b.SizeX)
+
+	for i := 0; i < b.SizeX; i++ {
+		colValues = append(colValues, b.Board[i][colIndex])
+	}
+
+	return colValues
+}
+
+func (b *Board) getRowValues(rowIndex int) []string {
+	return b.Board[rowIndex]
+}
+
+func (b *Board) getMainCrossValues() []string {
+	mainCross := make([]string, 0, b.SizeX)
+
+	for i := 0; i < b.SizeX; i++ {
+		for j := 0; j < b.SizeY; j++ {
+			if i == j {
+				mainCross = append(mainCross, b.Board[i][j])
+			}
+		}
+	}
+
+	return mainCross
+}
+
+func (b *Board) getSubCrossValues() []string {
+	subCross := make([]string, 0, b.SizeX)
+
+	for i := 0; i < b.SizeX; i++ {
+		for j := 0; j < b.SizeY; j++ {
+			if i+j+1 == b.SizeX {
+				subCross = append(subCross, b.Board[i][j])
+			}
+		}
+	}
+
+	return subCross
+}
+
+func (b *Board) getAmountOfEmpteFields() int {
 	var countEmptyFields int
 
 	for i := 0; i < b.SizeX; i++ {
@@ -67,7 +135,8 @@ func (b *Board) IsGameEnd() bool {
 			}
 		}
 	}
-	return countEmptyFields == 0
+
+	return countEmptyFields
 }
 
 func (b *Board) GetAvailableSteps() []stepCoordinates {
