@@ -5,46 +5,17 @@ import (
 	"testing"
 )
 
-type (
-	testStructIsGameEnd struct {
-		board             Board
-		expectedIsGameEnd bool
-		expectedIsDraw    bool
-	}
-
-	testStructIsWinningValues struct {
-		values            []string
-		expectedIsWinning bool
-	}
-
-	testStructGetAvailableSteps struct {
-		board         Board
-		expectedSteps []stepCoordinates
-	}
-
-	testStructGetRowValues struct {
-		board             Board
-		rowIndex          int
-		expectedRowValues []string
-	}
-	testStructGetColValues struct {
-		board             Board
-		colIndex          int
-		expectedColValues []string
-	}
-	testStructTranslateCoordinates struct {
-		coordinate           stepCoordinates
-		translatedCoordinate StepLetterCoordinates
-	}
-)
-
 var (
 	expectedNewBoard = [][]string{
 		{"*", "*", "*"},
 		{"*", "*", "*"},
 		{"*", "*", "*"},
 	}
-	testsIsGameEnd = []testStructIsGameEnd{
+	testsIsGameEnd = []struct {
+		board             Board
+		expectedIsGameEnd bool
+		expectedIsDraw    bool
+	}{
 		{board: Board{Board: [][]string{{"X", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: true, expectedIsDraw: false},
 		{board: Board{Board: [][]string{{"*", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: true, expectedIsDraw: false},
 		{board: Board{Board: [][]string{{"*", "*", "*"}, {"*", "*", "*"}, {"*", "*", "*"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: false, expectedIsDraw: false},
@@ -53,28 +24,45 @@ var (
 		{board: Board{Board: [][]string{{"O", "X", "*"}, {"O", "X", "X"}, {"O", "*", "X"}}, SizeX: 3, SizeY: 3}, expectedIsGameEnd: true, expectedIsDraw: false},
 	}
 
-	testsIsWinningValues = []testStructIsWinningValues{
+	testsIsWinningValues = []struct {
+		values            []string
+		expectedIsWinning bool
+	}{
 		{values: []string{"X", "X", "X"}, expectedIsWinning: true},
 		{values: []string{"O", "O", "O"}, expectedIsWinning: true},
 		{values: []string{"X", "O", "X"}, expectedIsWinning: false},
 		{values: []string{"*", "*", "*"}, expectedIsWinning: false},
 	}
 
-	testsTranslateCoordinate = []testStructTranslateCoordinates{
+	testsTranslateCoordinate = []struct {
+		coordinate           stepCoordinates
+		translatedCoordinate StepLetterCoordinates
+	}{
 		{coordinate: stepCoordinates{X: 1, Y: 2}, translatedCoordinate: StepLetterCoordinates{X: "2", Y: "C"}},
 		{coordinate: stepCoordinates{X: 0, Y: 0}, translatedCoordinate: StepLetterCoordinates{X: "1", Y: "A"}},
 		{coordinate: stepCoordinates{X: 2, Y: 2}, translatedCoordinate: StepLetterCoordinates{X: "3", Y: "C"}},
 	}
-	testsGetColValues = []testStructGetColValues{
+	testsGetColValues = []struct {
+		board             Board
+		colIndex          int
+		expectedColValues []string
+	}{
 		{board: Board{Board: [][]string{{"X", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, colIndex: 0, expectedColValues: []string{"X", "O", "X"}},
 		{board: Board{Board: [][]string{{"X", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, colIndex: 2, expectedColValues: []string{"X", "O", "X"}},
 	}
 
-	testsGetRowValues = []testStructGetRowValues{
+	testsGetRowValues = []struct {
+		board             Board
+		rowIndex          int
+		expectedRowValues []string
+	}{
 		{board: Board{Board: [][]string{{"X", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, rowIndex: 0, expectedRowValues: []string{"X", "X", "X"}},
 		{board: Board{Board: [][]string{{"X", "X", "X"}, {"O", "X", "O"}, {"X", "O", "X"}}, SizeX: 3, SizeY: 3}, rowIndex: 2, expectedRowValues: []string{"X", "O", "X"}},
 	}
-	testsGetAvailableSteps = []testStructGetAvailableSteps{
+	testsGetAvailableSteps = []struct {
+		board         Board
+		expectedSteps []stepCoordinates
+	}{
 		{
 			board: Board{
 				Board: [][]string{{"*", "*", "*"}, {"*", "*", "*"}, {"*", "*", "*"}},
